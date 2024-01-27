@@ -1,25 +1,25 @@
+// App.tsx
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-function App() {
+import Step1Form from './pages/Step1From';
+import Step2Form from './pages/Step2Form';
+import DataTables from './components/DataTable';
+
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <BrowserRouter>
+        <Routes>
+      
+          <Route path="/" element={<Step1Form />} />
+          <Route path="/step2" element={<Step2Form />} />
+       
+        
+      </Routes>
+      <DataTables />
+      </BrowserRouter>
+    
   );
 }
 
