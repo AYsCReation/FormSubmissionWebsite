@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useAppSelector } from '../store/store';
 import $ from 'jquery';
 import 'datatables.net-dt/css/jquery.dataTables.css';
-import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 
 const DataTables: React.FC = () => {
@@ -15,7 +14,7 @@ const DataTables: React.FC = () => {
       paging: true,
       ordering: true,
       searching: true,
-      data: persons,  // Provide the data for DataTable
+      data: persons,  
       columns: [
         { title: 'ID', data: 'id' },
         { title: 'Name', data: 'name' },
@@ -32,7 +31,6 @@ const DataTables: React.FC = () => {
       ],
     });
 
-    // Destroy DataTable when component unmounts
     return () => {
       table.destroy();
     };

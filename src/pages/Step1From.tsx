@@ -1,4 +1,4 @@
-// Step1Form.tsx
+
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,13 +8,10 @@ import Button from '@mui/material/Button';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-
-
 interface FormValues {
     name: string;
     age: string;
     mobile: string;
-    // Assuming it's a string, update it accordingly
     sex: string;
     govtIdType: string;
     govtId: string;
@@ -25,7 +22,7 @@ const schema = yup.object().shape({
         .string()
         .required('Age is required')
         .test('is-positive', 'Age must be a positive integer', (value) => {
-            if (!value) return false; // Handle empty string or null as you need
+            if (!value) return false;
             const numericValue = Number(value);
             return !isNaN(numericValue) && numericValue > 0 && Number.isInteger(numericValue);
         }),
@@ -43,16 +40,11 @@ const schema = yup.object().shape({
 });
 
 const Step1Form: React.FC = () => {
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(schema),
     });
-
-
-
     const navigate = useNavigate();
-
-
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         console.log(data);
         navigate('/step2', { state: { formData: data } });
@@ -60,36 +52,36 @@ const Step1Form: React.FC = () => {
 
     return (
         <>
-    <h1 className='text-3xl font-semibold text-center m-5 uppercase'>Step 1 : <span className='text-slate-700'>Form </span> <span className='text-slate-500 '>Registration</span></h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md flex flex-col gap-2">
-            <TextField label="Name" {...register('name')} error={Boolean(errors.name)} helperText={errors.name?.message} fullWidth className="mb-4" />
-            <TextField type='number' label="Mobile" {...register('mobile')} error={Boolean(errors.mobile)} helperText={errors.mobile?.message} fullWidth className="mb-4" />
-            <TextField type='number' label="age" {...register('age')} error={Boolean(errors.age)} helperText={errors.age?.message} fullWidth className="mb-4" />
+            <h1 className='text-3xl font-semibold text-center m-5 uppercase'>Step 1 : <span className='text-slate-700'>Form </span> <span className='text-slate-500 '>Registration</span></h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md flex flex-col gap-2">
+                <TextField label="Name" {...register('name')} error={Boolean(errors.name)} helperText={errors.name?.message} fullWidth className="mb-4" />
+                <TextField type='number' label="Mobile" {...register('mobile')} error={Boolean(errors.mobile)} helperText={errors.mobile?.message} fullWidth className="mb-4" />
+                <TextField type='number' label="age" {...register('age')} error={Boolean(errors.age)} helperText={errors.age?.message} fullWidth className="mb-4" />
 
-            <div className="flex mb-4">
-                <FormControl className="flex-grow mr-4">
-                    <InputLabel id="sex-label">Sex</InputLabel>
-                    <Select labelId="sex-label" {...register('sex')} error={Boolean(errors.sex)} fullWidth>
-                        <MenuItem value="Male">Male</MenuItem>
-                        <MenuItem value="Female">Female</MenuItem>
-                    </Select>
-                </FormControl>
+                <div className="flex mb-4">
+                    <FormControl className="flex-grow mr-4">
+                        <InputLabel id="sex-label">Sex</InputLabel>
+                        <Select labelId="sex-label" {...register('sex')} error={Boolean(errors.sex)} fullWidth>
+                            <MenuItem value="Male">Male</MenuItem>
+                            <MenuItem value="Female">Female</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                <FormControl className="flex-grow">
-                    <InputLabel id="govtIdType-label">Govt Issued ID</InputLabel>
-                    <Select labelId="govtIdType-label" {...register('govtIdType')} error={Boolean(errors.govtIdType)} fullWidth>
-                        <MenuItem value="Aadhar">Aadhar</MenuItem>
-                        <MenuItem value="PAN">PAN</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
+                    <FormControl className="flex-grow">
+                        <InputLabel id="govtIdType-label">Govt Issued ID</InputLabel>
+                        <Select labelId="govtIdType-label" {...register('govtIdType')} error={Boolean(errors.govtIdType)} fullWidth>
+                            <MenuItem value="Aadhar">Aadhar</MenuItem>
+                            <MenuItem value="PAN">PAN</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
 
-            <TextField label="Govt Issued ID Number" {...register('govtId')} error={Boolean(errors.govtId)} helperText={errors.govtId?.message} fullWidth className="mb-4" />
+                <TextField label="Govt Issued ID Number" {...register('govtId')} error={Boolean(errors.govtId)} helperText={errors.govtId?.message} fullWidth className="mb-4" />
 
-            <Button type="submit" variant="contained" color="primary" fullWidth className="py-2">
-                Next
-            </Button>
-        </form></>
+                <Button type="submit" variant="contained" color="primary" fullWidth className="py-2">
+                    Next
+                </Button>
+            </form></>
     );
 }
 

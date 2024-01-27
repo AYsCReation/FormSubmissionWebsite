@@ -1,4 +1,4 @@
-// Step2Form.tsx
+
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,13 +11,10 @@ import AsyncSelect from 'react-select/async';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { addPerson } from '../store/features/personSlice';
 
-
-
 interface Country {
     label: string;
     value: string;
 }
-
 
 interface FormValues {
     address?: string;
@@ -37,20 +34,15 @@ const schema = yup.object().shape({
         return isCountrySelected || this.createError({ path: 'country', message: 'Country is required' });
     }),
 
-
-
-
 });
 
 const Step2Form: React.FC = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const step1FormData = location.state?.formData || {};
-
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormValues>({
         resolver: yupResolver(schema) as any,
     });
-
     const navigate = useNavigate();
     const [countryOptions, setCountryOptions] = useState<Country[]>([]);
     const selectedCountry = watch('country');
@@ -77,8 +69,6 @@ const Step2Form: React.FC = () => {
     console.log(step1FormData);
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
-        // Handle form submission logic
-        console.log(data);
         dispatch(
             addPerson({
               name: (step1FormData as any).name,
@@ -94,14 +84,9 @@ const Step2Form: React.FC = () => {
               country: data.country,
             })
           );
-          
-
-
-
     };
     const handleCountryChange = (selectedOption: any) => {
-        // Set the selected country value in the form data
-        setValue('country', selectedOption?.value); // Use optional chaining to handle potential undefined selectedOption
+        setValue('country', selectedOption?.value); 
     };
 
     return (<>
